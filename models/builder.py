@@ -1,4 +1,4 @@
-from mmcv.utils import Registry
+from mmengine.registry import Registry
 
 MODELS = Registry('models')
 from omegaconf import OmegaConf

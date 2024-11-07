@@ -9,7 +9,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import torchvision.transforms as T
-from mmseg.ops import resize
+from mmseg.models.utils.wrappers import resize
 from omegaconf import OmegaConf
 
 from models.builder import MODELS, build_model
@@ -257,7 +257,7 @@ class CLIP_DINOiser(DinoCLIP):
         clip_proj_feats = self.get_clip_features(x)[0]
         B, c_dim, h, w = clip_proj_feats.shape
         if self.feats_idx != 'final':
-            clip_feats = self.train_feats['clip_inter']
+            clip_feats = self.train_feats['clip_inter'].permute(1, 0, 2)
             B, N, c_dim = clip_feats.shape
             clip_feats = clip_feats[:, 1:, ].permute(0, 2, 1).reshape(B, c_dim, h, w)
         else:

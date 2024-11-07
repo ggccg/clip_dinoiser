@@ -9,7 +9,7 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from mmseg.ops import resize
+from mmseg.models.utils.wrappers import resize
 from typing import List, Tuple
 from torch import Tensor
 from open_clip import get_tokenizer,  create_model_from_pretrained
@@ -69,7 +69,7 @@ class MaskClip(nn.Module):
         v = self.hook_features["v"]
         v = self.extract_v(v, self.backbone.visual.transformer.resblocks[-1]).permute(1, 0, 2)
         v = self.backbone.visual.ln_post(v)
-        v = v[:, 1:]
+        v = v.permute(1, 0, 2)[:, 1:]
         v = v.reshape(B, hw_shape[0], hw_shape[1], -1).permute(0, 3, 1, 2).contiguous()
 
         self.backbone.visual.positional_embedding.data = self._positional_embd

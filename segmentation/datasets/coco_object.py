@@ -2,11 +2,12 @@
 # Modified from GroupViT (https://github.com/NVlabs/GroupViT)
 # Copyright (c) 2021-22, NVIDIA Corporation & affiliates. All Rights Reserved.
 # ------------------------------------------------------------------------------
-from mmseg.datasets import DATASETS, CustomDataset
+from mmseg.datasets import BaseSegDataset
+from mmseg.registry import DATASETS
 
 
 @DATASETS.register_module()
-class COCOObjectDataset(CustomDataset):
+class COCOObjectDataset(BaseSegDataset):
     """COCO-Object dataset.
 
     1 bg class + first 80 classes from the COCO-Stuff dataset.

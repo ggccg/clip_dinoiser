@@ -6,7 +6,7 @@
 import logging
 import os.path as osp
 
-from mmcv.utils import get_logger as get_root_logger
+from mmcv.utils.logging import get_logger as get_root_logger
 from termcolor import colored
 
 logger_name = None
